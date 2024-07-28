@@ -17,23 +17,38 @@ int main (int argc, char argv[]) {
             int o2 = ops[j2];
             int d3 = digits[i3];
             //printf("(%d %c %d) %c %d\n",d1,o1,d2,o2,d3);
-            int r = d1;
-            switch(o1) {
-            case '+': r += d2; break;
-            case '-': r -= d2; break;
-            case '*': r *= d2; break;
-            }
-            switch(o2) {
-            case '+': r += d3; break;
-            case '-': r -= d3; break;
-            case '*': r *= d3; break;
+            int r;
+            if (o1 == '*' && o2 != '*') {
+              int a = d1 * d2;
+              int x = a;
+              switch(o2) {
+              case '+': x += d3; break;
+              case '-': x -= d3; break;
+              }
+              r = x;
+            } else if (o1 != '*' && o2 == '*') {
+              int x = d1;
+              int b = d2 * d3;
+              switch(o1) {
+              case '+': x += b; break;
+              case '-': x -= b; break;
+              }
+              r = x;
+            } else {
+              r = d1;
+              switch(o1) {
+              case '+': r += d2; break;
+              case '-': r -= d2; break;
+              case '*': r *= d2; break;
+              }
+              switch(o2) {
+              case '+': r += d3; break;
+              case '-': r -= d3; break;
+              case '*': r *= d3; break;
+              }
             }
             if (r == 70) {
-              if (o1 == '*') {
-                printf(" %d %c %d  %c %d = %d\n",d1,o1,d2,o2,d3,r);
-              } else {
-                printf("(%d %c %d) %c %d = %d\n",d1,o1,d2,o2,d3,r);
-              }
+              printf("%d %c %d %c %d = %d\n",d1,o1,d2,o2,d3,r);
             }
           }
         }
